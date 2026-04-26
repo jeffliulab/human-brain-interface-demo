@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "anima-intention-action"
+version = "0.1.0a0"
+description = "BCI adaptation of the Anima cognitive framework: Intention-to-Action stack for invasive brain-computer interfaces driving embodied devices."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [
+    { name = "Jeff Liu Lab", email = "contact@jeffliulab.com" },
+]
+keywords = [
+    "brain-computer-interface",
+    "bci",
+    "embodied-ai",
+    "cognitive-framework",
+    "assistive-robotics",
+    "behavior-tree",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Human Machine Interfaces",
+]
+dependencies = [
+    "numpy>=1.26",
+    "pydantic>=2.6",
+    "py_trees>=2.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/jeffliulab/anima-intention-action"
+Demo = "https://github.com/jeffliulab/human-brain-interface-demo"
+Framework = "https://github.com/jeffliulab/anima"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anima_intention_action"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

@@ -1,0 +1,18 @@
+{
+  "adl": [
+    "DRINK_WATER", "EAT_FOOD", "GRASP", "LIFT", "DELIVER",
+    "PLACE", "RELEASE", "WIPE_MOUTH", "SCRATCH_ITCH", "ADJUST_PILLOW",
+    "ADJUST_BLANKET", "HAND_OVER", "OPEN_BOTTLE", "POUR", "STIR"
+  ],
+  "navigation": [
+    "MOVE_FORWARD", "MOVE_BACKWARD", "TURN_LEFT", "TURN_RIGHT",
+    "GOTO_BED", "GOTO_TABLE", "GOTO_DOOR", "GOTO_BATHROOM",
+    "FOLLOW_CAREGIVER", "STOP_MOVING"
+  ],
+  "device_control": [
+    "TURN_ON_LIGHT", "TURN_OFF_LIGHT", "ADJUST_TV",
+    "CALL_ELEVATOR", "OPEN_CURTAIN"
+  ],
+  "emergency": ["CALL_HELP", "EMERGENCY_STOP"],
+  "meta": ["CONFIRM", "CANCEL", "UNKNOWN"]
+}

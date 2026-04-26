@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability (private)
+    url: https://github.com/jeffliulab/anima-intention-action/blob/main/SECURITY.md
+    about: "For issues with patient-safety implications or any vulnerability, please follow SECURITY.md and email privately. DO NOT open a public issue."
+  - name: Anima framework (main repo)
+    url: https://jeffliulab.com
+    about: "Context on the parent Anima cognitive framework."

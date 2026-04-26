@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "ita": {
+      "default": 0.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Ita",
+      "type": "number"
+    },
+    "mqa": {
+      "default": 1.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Mqa",
+      "type": "number"
+    },
+    "sqa": {
+      "default": 1.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Sqa",
+      "type": "number"
+    },
+    "goa": {
+      "default": 0.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Goa",
+      "type": "number"
+    },
+    "pea_count": {
+      "default": 0,
+      "title": "Pea Count",
+      "type": "integer"
+    }
+  },
+  "title": "FiveFactors",
+  "type": "object"
+}

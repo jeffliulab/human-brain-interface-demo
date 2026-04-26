@@ -1,0 +1,70 @@
+{
+  "properties": {
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "intent_token": {
+      "enum": [
+        "DRINK_WATER",
+        "EAT_FOOD",
+        "GRASP",
+        "LIFT",
+        "DELIVER",
+        "PLACE",
+        "RELEASE",
+        "WIPE_MOUTH",
+        "SCRATCH_ITCH",
+        "ADJUST_PILLOW",
+        "ADJUST_BLANKET",
+        "HAND_OVER",
+        "OPEN_BOTTLE",
+        "POUR",
+        "STIR",
+        "MOVE_FORWARD",
+        "MOVE_BACKWARD",
+        "TURN_LEFT",
+        "TURN_RIGHT",
+        "GOTO_BED",
+        "GOTO_TABLE",
+        "GOTO_DOOR",
+        "GOTO_BATHROOM",
+        "FOLLOW_CAREGIVER",
+        "STOP_MOVING",
+        "TURN_ON_LIGHT",
+        "TURN_OFF_LIGHT",
+        "ADJUST_TV",
+        "CALL_ELEVATOR",
+        "OPEN_CURTAIN",
+        "CALL_HELP",
+        "EMERGENCY_STOP",
+        "CONFIRM",
+        "CANCEL",
+        "UNKNOWN"
+      ],
+      "title": "Intent Token",
+      "type": "string"
+    },
+    "outcome": {
+      "enum": [
+        "success",
+        "fail",
+        "cancel"
+      ],
+      "title": "Outcome",
+      "type": "string"
+    },
+    "user_text": {
+      "default": "",
+      "title": "User Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "intent_token",
+    "outcome"
+  ],
+  "title": "PEARecord",
+  "type": "object"
+}

@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "Alternative": {
+      "properties": {
+        "token": {
+          "enum": [
+            "DRINK_WATER",
+            "EAT_FOOD",
+            "GRASP",
+            "LIFT",
+            "DELIVER",
+            "PLACE",
+            "RELEASE",
+            "WIPE_MOUTH",
+            "SCRATCH_ITCH",
+            "ADJUST_PILLOW",
+            "ADJUST_BLANKET",
+            "HAND_OVER",
+            "OPEN_BOTTLE",
+            "POUR",
+            "STIR",
+            "MOVE_FORWARD",
+            "MOVE_BACKWARD",
+            "TURN_LEFT",
+            "TURN_RIGHT",
+            "GOTO_BED",
+            "GOTO_TABLE",
+            "GOTO_DOOR",
+            "GOTO_BATHROOM",
+            "FOLLOW_CAREGIVER",
+            "STOP_MOVING",
+            "TURN_ON_LIGHT",
+            "TURN_OFF_LIGHT",
+            "ADJUST_TV",
+            "CALL_ELEVATOR",
+            "OPEN_CURTAIN",
+            "CALL_HELP",
+            "EMERGENCY_STOP",
+            "CONFIRM",
+            "CANCEL",
+            "UNKNOWN"
+          ],
+          "title": "Token",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "token",
+        "confidence"
+      ],
+      "title": "Alternative",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "token": {
+      "enum": [
+        "DRINK_WATER",
+        "EAT_FOOD",
+        "GRASP",
+        "LIFT",
+        "DELIVER",
+        "PLACE",
+        "RELEASE",
+        "WIPE_MOUTH",
+        "SCRATCH_ITCH",
+        "ADJUST_PILLOW",
+        "ADJUST_BLANKET",
+        "HAND_OVER",
+        "OPEN_BOTTLE",
+        "POUR",
+        "STIR",
+        "MOVE_FORWARD",
+        "MOVE_BACKWARD",
+        "TURN_LEFT",
+        "TURN_RIGHT",
+        "GOTO_BED",
+        "GOTO_TABLE",
+        "GOTO_DOOR",
+        "GOTO_BATHROOM",
+        "FOLLOW_CAREGIVER",
+        "STOP_MOVING",
+        "TURN_ON_LIGHT",
+        "TURN_OFF_LIGHT",
+        "ADJUST_TV",
+        "CALL_ELEVATOR",
+        "OPEN_CURTAIN",
+        "CALL_HELP",
+        "EMERGENCY_STOP",
+        "CONFIRM",
+        "CANCEL",
+        "UNKNOWN"
+      ],
+      "title": "Token",
+      "type": "string"
+    },
+    "confidence": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "requires_confirmation": {
+      "default": false,
+      "title": "Requires Confirmation",
+      "type": "boolean"
+    },
+    "alternatives": {
+      "items": {
+        "$ref": "#/$defs/Alternative"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "drift_score": {
+      "default": 0.05,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Drift Score",
+      "type": "number"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "source_text": {
+      "default": "",
+      "title": "Source Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "confidence"
+  ],
+  "title": "IntentToken",
+  "type": "object"
+}

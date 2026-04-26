@@ -1,0 +1,25 @@
+---
+interface Props {
+  step: string;
+  title: string;
+  caption: string;
+  image: string;
+}
+
+const { step, title, caption, image } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const imgSrc = `${base}/${image}`;
+---
+
+<figure class="flex flex-col gap-3">
+  <div class="overflow-hidden rounded-md border border-border bg-bg-card">
+    <img src={imgSrc} alt={title} loading="lazy" class="block h-auto w-full" />
+  </div>
+  <figcaption>
+    <div class="flex items-baseline gap-3">
+      <span class="font-mono text-xs text-text-tertiary">{step}</span>
+      <h3 class="text-sm font-semibold text-text">{title}</h3>
+    </div>
+    <p class="mt-1 text-sm leading-relaxed text-text-muted">{caption}</p>
+  </figcaption>
+</figure>
