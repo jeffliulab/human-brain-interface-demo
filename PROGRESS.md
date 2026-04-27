@@ -293,6 +293,7 @@ hbi-demo 项目相关的文件分散在四个位置，以下是 source-of-truth 
 
 - repo ↔ deploy 是两套独立拷贝，没有自动同步。改一边不会传到另一边。
 - 直连 `89.167.35.145` 的外部请求会被 ufw DROP，所以"测试 origin"必须从服务器本机或通过 dev.jeffliulab.com。
+- **Stretch RE3 真机依赖 librealsense2（Intel D435i 摄像头驱动）**。当前 hbi-demo 是纯 MuJoCo 仿真，**不需要** librealsense2。如果以后接真机或重装 librealsense2，安装过程会在 `/home/buildfarm/Documents/librealsense2/presets/sample.preset` 落一份示例 preset（Intel SDK 包的副产品，跟 anima/hbi-demo 无关）—— 看到这个目录不必惊讶，也不必为它配 systemd 或 nginx。
 
 **v0.3 验收标准（预定）**：
 
