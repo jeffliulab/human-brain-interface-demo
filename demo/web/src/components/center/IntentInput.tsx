@@ -4,7 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { submitIntent } from "@/lib/api";
 import { useDemoStore } from "@/lib/store";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8765";
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function IntentInput() {
   const [text, setText] = useState("");
@@ -18,7 +18,7 @@ export function IntentInput() {
   useEffect(() => {
     let cancelled = false;
     const poll = () =>
-      fetch(`${API_URL}/api/sim/status`)
+      fetch(`${BASE}/api/sim/status`)
         .then((r) => r.json())
         .then((j) => !cancelled && setLightOff(Boolean(j?.light_off)))
         .catch(() => {});

@@ -11,13 +11,19 @@ import type {
   WSEvent,
 } from "@/types/taskspec";
 
-const WS_URL = process.env.NEXT_PUBLIC_WS_URL ?? "ws://localhost:8765/ws";
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function buildWsUrl(): string {
+  if (typeof window === "undefined") return "";
+  const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
+  return `${proto}//${window.location.host}${BASE}/ws`;
+}
 
 export function useDemoWebSocket() {
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket(WS_URL);
+    const ws = new WebSocket(buildWsUrl());
     wsRef.current = ws;
     const store = useDemoStore.getState();
 

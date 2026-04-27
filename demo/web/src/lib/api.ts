@@ -1,9 +1,9 @@
 import type { TaskSpec } from "@/types/taskspec";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8765";
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export async function submitIntent(userText: string): Promise<TaskSpec> {
-  const res = await fetch(`${API_URL}/api/intent`, {
+  const res = await fetch(`${BASE}/api/intent`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ user_text: userText }),
@@ -15,6 +15,6 @@ export async function submitIntent(userText: string): Promise<TaskSpec> {
 }
 
 export async function checkHealth(): Promise<{ status: string; model: string }> {
-  const res = await fetch(`${API_URL}/health`);
+  const res = await fetch(`${BASE}/health`);
   return res.json();
 }

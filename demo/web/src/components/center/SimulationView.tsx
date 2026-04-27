@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8765";
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const CAMERA_LABELS: Record<string, string> = {
   demo_view: "总览",
@@ -26,7 +26,7 @@ export function SimulationView() {
   useEffect(() => {
     let cancelled = false;
     const check = () => {
-      fetch(`${API_URL}/api/sim/status`)
+      fetch(`${BASE}/api/sim/status`)
         .then((r) => r.json())
         .then((j) => {
           if (cancelled) return;
@@ -44,7 +44,7 @@ export function SimulationView() {
 
   useEffect(() => {
     if (available !== true) return;
-    fetch(`${API_URL}/api/sim/cameras`)
+    fetch(`${BASE}/api/sim/cameras`)
       .then((r) => r.json())
       .then((j) => {
         const list = Array.isArray(j?.cameras) ? j.cameras : [];
@@ -63,7 +63,7 @@ export function SimulationView() {
     setAvailable(null);  // re-enter "checking" state; status poll will flip
                          // back to true once the sim subprocess comes back.
     try {
-      await fetch(`${API_URL}/api/sim/reset`, { method: "POST" });
+      await fetch(`${BASE}/api/sim/reset`, { method: "POST" });
       // Sim restart takes ~15s; delay the <img> refresh until the stream
       // is actually reachable again.
       setTimeout(() => setStreamKey((k) => k + 1), 17000);
@@ -77,7 +77,7 @@ export function SimulationView() {
 
   const handleEstop = useCallback(async () => {
     try {
-      await fetch(`${API_URL}/api/sim/estop`, { method: "POST" });
+      await fetch(`${BASE}/api/sim/estop`, { method: "POST" });
       setEstop(true);
     } catch (err) {
       console.error("estop failed", err);
@@ -86,7 +86,7 @@ export function SimulationView() {
 
   const handleClearEstop = useCallback(async () => {
     try {
-      await fetch(`${API_URL}/api/sim/estop/clear`, { method: "POST" });
+      await fetch(`${BASE}/api/sim/estop/clear`, { method: "POST" });
       setEstop(false);
     } catch (err) {
       console.error("clear estop failed", err);
@@ -98,7 +98,7 @@ export function SimulationView() {
     setStreamKey((k) => k + 1);
   }, []);
 
-  const streamSrc = `${API_URL}/api/sim/mjpeg?camera=${encodeURIComponent(
+  const streamSrc = `${BASE}/api/sim/mjpeg?camera=${encodeURIComponent(
     camera,
   )}&t=${streamKey}`;
 

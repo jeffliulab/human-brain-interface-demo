@@ -8,7 +8,7 @@ export const SITE = {
 } as const;
 
 export const LIVE_DEMO = {
-  url: "https://dev.jeffliulab.com",
+  url: "https://dev.jeffliulab.com/hbi-demo/",
   label: "在线 Demo",
   warning: "桌面浏览器",
 } as const;
