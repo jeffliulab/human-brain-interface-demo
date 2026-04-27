@@ -249,11 +249,50 @@
 
 ### 工作恢复锚点（resume notes）
 
-- **服务器是 canonical live state**：`anima-robot-cloud`（SSH 别名）`/root/anima/`，systemd `anima-api.service` + `anima-web.service`
+- **服务器是 canonical live state**：Hetzner box，hostname `anima-robot-cloud`，eth0 = `89.167.35.145`，对外 `dev.jeffliulab.com`（CF 前置 + ufw 锁源）
 - **服务器侧不是 git 仓库**（裸目录），所以"以服务器为准、本地周期性同步"是常态
-- 本地仓库下次启动时：`git status` 应显示上述 5 个文件为 `M` / `??`，先决定 commit 还是丢弃
-- 验证服务器健康：`ssh anima-robot-cloud 'curl -s http://127.0.0.1:8765/api/sim/status'` 应返回 `available:true, running:true`
+- 验证服务器健康：在服务器上 `curl -s http://127.0.0.1:8765/api/sim/status` 应返回 `available:true, running:true`；外部用 `curl -s https://dev.jeffliulab.com/hbi-demo/api/sim/status`
 - v0.3 截图：`运行时的截图/`（未追踪目录）
+
+### 部署布局 / Deployment Layout（2026-04-27 整理）
+
+hbi-demo 项目相关的文件分散在四个位置，以下是 source-of-truth 索引：
+
+#### 运行时（runtime — 服务器上的实际部署）
+
+| 路径 | 角色 |
+|---|---|
+| `/root/anima/demo/core/` | FastAPI + Anima L0-L5 后端代码；`systemctl status anima-api`（127.0.0.1:8765） |
+| `/root/anima/demo/web/` | Next.js v16 prod build；basePath `/hbi-demo`，trailingSlash true；`systemctl status anima-web`（127.0.0.1:3000） |
+| `/root/anima/demo/web/.env.local` | `NEXT_PUBLIC_BASE_PATH=/hbi-demo`（build-time 注入） |
+| `/root/pkgs/stretch_mujoco/stretch_mujoco/models/hospital_ward.xml` | **真正被加载的 MJCF 场景**（同目录还有 v1/v2/v3 等备份）；anima-api 加载，路径写死在 `demo/core/src/sim/manager.py` `SCENE_XML`，可被 `ANIMA_SCENE_XML` 环境变量覆盖 |
+| `/root/pkgs/stretch_mujoco/` | Hello Robot stretch_mujoco 包的本地 fork（源码工作树，不是 pip 安装） |
+| `/home/dev.jeffliulab.com-homepage/index.html` | `dev.jeffliulab.com/` 的静态 landing 页 |
+| `/etc/nginx/sites-available/anima` | nginx 路由（`/` → landing；`/hbi-demo/` → Next.js；`/hbi-demo/api/` 剥前缀 → FastAPI；`/hbi-demo/ws` 剥前缀 → FastAPI WebSocket；非 dev.jeffliulab.com 的 Host 返回 444） |
+| `/etc/systemd/system/anima-api.service` | WorkingDirectory=/root/anima/demo/core，EnvironmentFile=/root/anima/demo/core/.env |
+| `/etc/systemd/system/anima-web.service` | WorkingDirectory=/root/anima/demo/web |
+| `/etc/nginx/ssl/origin.crt` + `.key` | Cloudflare Origin CA 证书（SAN 仅含 dev.jeffliulab.com，无通配符） |
+
+#### Git 仓库（development）
+
+| 路径 | 角色 |
+|---|---|
+| `/home/human-brain-interface-demo/` | git 工作副本（github.com/jeffliulab/human-brain-interface-demo） |
+| `/home/human-brain-interface-demo/demo/core/assets/scenes/hospital_ward.xml` | **历史副本，未被运行时加载** — repo 自包含目的留下的；改这份对运行中的 demo 没影响 |
+| `/home/human-brain-interface-demo/github-page/` | GitHub Pages 展示页源码（Astro），`LIVE_DEMO.url` 在 `src/config/site.ts` 集中配置 |
+
+#### 改东西的正确路径
+
+- **改 MJCF 场景**：编辑 `/root/pkgs/stretch_mujoco/stretch_mujoco/models/hospital_ward.xml` → `systemctl restart anima-api`
+- **改前端**：编辑 repo 源码 → `cp` 同步到 `/root/anima/demo/web/` → `cd /root/anima/demo/web && npm run build` → `systemctl restart anima-web`
+- **改后端 Python**：编辑 `/root/anima/demo/core/src/...` → `systemctl restart anima-api`（repo 同步是手动的）
+- **改 nginx**：编辑 `/etc/nginx/sites-available/anima` → `nginx -t && systemctl reload nginx`
+- **改 landing 页**：编辑 `/home/dev.jeffliulab.com-homepage/index.html`（无需 reload，nginx 直接读文件）
+
+#### 注意事项
+
+- repo ↔ deploy 是两套独立拷贝，没有自动同步。改一边不会传到另一边。
+- 直连 `89.167.35.145` 的外部请求会被 ufw DROP，所以"测试 origin"必须从服务器本机或通过 dev.jeffliulab.com。
 
 **v0.3 验收标准（预定）**：
 
