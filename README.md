@@ -3,7 +3,7 @@
 > 最小可信原型：用 Anima 认知框架（5 层 + 5 因素 + LLM-as-Parser）驱动仿真中的 Stretch RE3 护理机器人，完成脑机接口风格的「意图 → 行动」闭环。文本输入代理 BCI 解码出的意图；下游 TaskSpec、行为树、五因素评估、审计日志都是功能实现。
 
 - **展示页**：<https://jeffliulab.github.io/human-brain-interface-demo/>
-- **在线 Demo**：<https://dev.jeffliulab.com/hbi-demo/>（桌面浏览器）
+- **实时交互 Demo**：需联系作者获取权限（Live interactive demo available on request — contact the author，<jeff.pang.liu@gmail.com>）
 - **状态**：v0.2 — 实时 MuJoCo + 自主 Stretch 技能 + Hetzner 部署
 
 ---

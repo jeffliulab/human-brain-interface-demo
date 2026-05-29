@@ -7,12 +7,6 @@ export const SITE = {
   repo: "https://github.com/jeffliulab/human-brain-interface-demo",
 } as const;
 
-export const LIVE_DEMO = {
-  url: "https://dev.jeffliulab.com/hbi-demo/",
-  label: "在线 Demo",
-  warning: "桌面浏览器",
-} as const;
-
 export const NAV_ITEMS = [
   { href: "#prototype", label: "可交互原型" },
   { href: "#demo", label: "DEMO 细节" },
